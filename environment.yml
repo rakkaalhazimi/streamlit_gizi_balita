@@ -50,7 +50,6 @@ dependencies:
   - tk=8.6.11=h2bbff1b_0
   - tornado=6.1=py38h2bbff1b_0
   - vc=14.2=h21ff451_1
-  - vs2015_runtime=14.27.29016=h5e58377_2
   - wheel=0.37.0=pyhd3eb1b0_1
   - wincertstore=0.2=py38haa95532_2
   - xz=5.2.5=h62dcd97_0
