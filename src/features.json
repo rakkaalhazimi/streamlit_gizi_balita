@@ -1,0 +1,65 @@
+{
+    "Usia (Bulan)": {
+        "input_type": "number_input",
+        "input_kwargs": {
+            "label": "Usia (Bulan)",
+            "min_value": 1,
+            "max_value": 60,
+            "step": 1,
+            "key": "usia"
+        }
+    },
+
+    "Jenis Kelamin": {
+        "input_type": "selectbox",
+        "input_kwargs": {
+            "label": "Jenis Kelamin",
+            "options": ["Laki-laki", "Perempuan"],
+            "key": "jenis_kelamin"
+        }
+    },
+
+    "Berat Badan (Kg)": {
+        "input_type": "number_input",
+        "input_kwargs": {
+            "label": "Berat Badan (Kg)",
+            "min_value": 2,
+            "max_value": 25,
+            "step": 1,
+            "key": "berat"
+        }
+    },
+
+    "Tinggi Badan (Cm)": {
+        "input_type": "number_input",
+        "input_kwargs": {
+            "label": "Tinggi Badan (Cm)",
+            "min_value": 5,
+            "max_value": 130,
+            "step": 1,
+            "key": "tinggi"
+        }
+    },
+
+    "Pendapatan Orang tua": {
+        "input_type": "selectbox",
+        "input_kwargs": {
+            "label": "Pendapatan Orang tua",
+            "options": [
+                "1 - dibawah dua juta rupiah", 
+                "2 - antara dua juta sampai lima juta rupiah",
+                "3 - lebih dari lima juta rupiah"
+            ],
+            "key": "pendapatan"
+        }
+    },
+
+    "Pendidikan Ibu": {
+        "input_type": "selectbox",
+        "input_kwargs": {
+            "label": "Pendidikan Ibu",
+            "options": ["SD", "SMP", "SMA", "S1"],
+            "key": "pendidikan"
+        }
+    }
+}
