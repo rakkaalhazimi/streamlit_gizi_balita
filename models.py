@@ -22,7 +22,7 @@ def get_feature_props(filename):
 def get_classifier(name):
     model_maps = {
         "Naive Bayes": "src/nbc_pipe.joblib",
-        "K-Nearest Neighbors": "src/nbc_pipe.joblib"
+        "K-Nearest Neighbors": "src/knn_pipe.joblib"
     }
     classifier = joblib.load(model_maps[name])
     return classifier
