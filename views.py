@@ -14,7 +14,14 @@ def view_home():
 # Dataset Page
 def view_table():
     df = get_dataframe("src/Data Balita.xlsx")
-    st.table(df.style.format(precision=2))
+    df = df.style.format(precision=2)
+    df = df.set_table_styles(
+        [
+            {'selector': 'th, tr, td', 'props': 'text-align: center !important;'},
+        ],
+        overwrite=True
+    )
+    st.table(df)
 
 
 # Classifier Page
