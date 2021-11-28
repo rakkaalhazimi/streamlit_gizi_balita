@@ -29,18 +29,28 @@ def show_predictions(classifier, prediction):
     st.header(classifier)
     st.markdown("Status gizi balita terprediksi sebagai **{}**".format(prediction))
 
+
+def show_description():
+    st.header("Klasifikasi Status Gizi Balita")
+    st.markdown("Terdapat 2 model yang digunakan:")
+    st.markdown("1. Naive Bayes\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 81%")
+    st.markdown("2. K-Nearest Neighbors\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 92%")
+    st.markdown("#")
+
 def show_probabilities_info(proba_data):
     fig, ax = plt.subplots()
     sns.barplot(data=proba_data, x="Keterangan", y="Peluang", ax=ax)
 
     st.subheader("Tabel Probabilitas")
     st.dataframe(proba_data.style.format(formatter={"Peluang": "{:.2%}"}))
-    st.subheader("Distribusi")
+    st.subheader("Probabilitas Tiap Kategori")
     st.pyplot(fig)
+
 
 def view_classifier():
     props = get_feature_props("src/features.json")
-
+    
+    show_description()
     with st.form("my_form"):
         # Dict to store all forms records
         records = {}
