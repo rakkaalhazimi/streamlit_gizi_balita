@@ -1,4 +1,5 @@
 import streamlit as st
+from styles import set_style
 from views import view_home, view_table, view_classifier, view_result
 
 PAGES = {
@@ -11,5 +12,10 @@ def change_page(page):
     run = PAGES.get(page)
     run()
 
-page = st.sidebar.selectbox("Navbar", PAGES.keys())
+# Set style
+set_style()
+
+# Set Homepage View
+nav_title = st.sidebar.markdown("<p class='title'>Navigasi</p>", unsafe_allow_html=True)
+page = st.sidebar.selectbox("", PAGES.keys())
 change_page(page)

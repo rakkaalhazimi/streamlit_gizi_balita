@@ -7,8 +7,10 @@ from models import get_dataframe, get_feature_props, get_classifier, preprocess_
 
 # Home Page
 def view_home():
-    st.title("Status Gizi Balita")
-    st.text("Masukkan deskripsi aplikasi disini")
+    st.title("Klasifikasi Status Gizi Balita")
+    st.text("""
+    Aplikasi berbasis website untuk melakukan klasifikasi status gizi balita 
+    dengan menggunakan Naive Bayes dan KNN""")
 
 
 # Dataset Page
@@ -32,9 +34,9 @@ def show_predictions(classifier, prediction):
 
 def show_description():
     st.header("Klasifikasi Status Gizi Balita")
-    st.markdown("Terdapat 2 model yang digunakan:")
-    st.markdown("1. Naive Bayes\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 81%")
-    st.markdown("2. K-Nearest Neighbors\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 92%")
+    # st.markdown("Terdapat 2 model yang digunakan:")
+    # st.markdown("1. Naive Bayes\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 81%")
+    # st.markdown("2. K-Nearest Neighbors\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 92%")
     st.markdown("#")
 
 def show_probabilities_info(proba_data):
@@ -56,7 +58,7 @@ def view_classifier():
         records = {}
 
         # Classifier Choice
-        classifier = st.radio("Jenis Model Klasifikasi", ["Naive Bayes", "K-Nearest Neighbors"])
+        classifier = st.radio("Jenis Model Klasifikasi", ["Naive Bayes", "K-Nearest Neighbors", "Gabungan"])
 
         # Iterate through all features properties
         for col in props:
