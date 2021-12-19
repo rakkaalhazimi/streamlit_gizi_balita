@@ -31,6 +31,12 @@ def set_style():
                 color: white;
             }
 
+            div.stRadio > label,
+            div.stMultiSelect > label {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
             div[data-baseweb="select"] > div {
                 background-color: white;
             }

@@ -4,7 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
 from styles import table_format
-from models import get_dataframe, get_feature_props, get_classifier, preprocess_input
+from models import (
+    get_dataframe, get_feature_props, get_classifier, get_predictions, preprocess_input
+)
 
 # Home Page
 def view_home():
@@ -27,6 +29,7 @@ def view_table():
 
 # Classifier Page
 def show_predictions(classifier, prediction):
+    st.markdown("<h2>Hasil prediksi: {}</h2>".format(prediction), unsafe_allow_html=True)
     st.header(classifier)
     st.markdown("Status gizi balita terprediksi sebagai **{}**".format(prediction))
 
@@ -56,8 +59,8 @@ def view_classifier():
         # Dict to store all forms records
         records = {}
 
-        # Classifier Choice
-        classifier = st.radio("Jenis Model Klasifikasi", ["Naive Bayes", "K-Nearest Neighbors", "Gabungan"])
+        # Form title
+        st.markdown("<h3>Data Balita</h3>", unsafe_allow_html=True)
 
         # Iterate through all features properties
         for col in props:
@@ -65,36 +68,45 @@ def view_classifier():
             method_kwargs = props[col]["input_kwargs"]                          # get method keyword arguments
             call_method = operator.methodcaller(method_name, **method_kwargs)   # setup method caller with kwargs
             records[col] = call_method(st)                                      # call method
-
+        
+        # Classifier Choice
+        st.markdown("#")
+        classifier = st.radio(
+            "Jenis Model Klasifikasi", ["Naive Bayes", "K-Nearest Neighbors", "Naive Bayes dan K-Nearest Neighbors"]
+        )
+        
         # Submit Button
-        predict_button = st.form_submit_button("Predict")
+        predict_button = st.form_submit_button("Prediksi")
 
     if predict_button:
         # Get model between naive bayes and knn
-        model = get_classifier(classifier)
+        models = get_classifier(classifier)
 
         # st.write(bayes.named_steps["classifier"].classes_)
         clean_records = preprocess_input(records)
 
-        # Create dataframe
+        # # Create dataframe
         X = pd.DataFrame({
             key: [value] for key, value in clean_records.items()
         })
 
+
         # Write predictions
-        prediction = str(model.predict(X)[0])
-        show_predictions(classifier, prediction)
+        predictions = get_predictions(classifier, models, X)
 
-        # Plot probabilites
-        probabilities = model.predict_proba(X)
-        classes = model.named_steps["classifier"].classes_
+        st.write(predictions)
+        # show_predictions(classifier, prediction)
+
+        # # Plot probabilites
+        # probabilities = model.predict_proba(X)
+        # classes = model.named_steps["classifier"].classes_
         
-        proba_data = pd.DataFrame({
-            "Peluang": probabilities.flatten(),
-            "Keterangan": classes,
-        })
+        # proba_data = pd.DataFrame({
+        #     "Peluang": probabilities.flatten(),
+        #     "Keterangan": classes,
+        # })
 
-        show_probabilities_info(proba_data)
+        # show_probabilities_info(proba_data)
         
 
 def view_info():

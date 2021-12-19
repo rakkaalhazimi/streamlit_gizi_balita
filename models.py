@@ -1,9 +1,9 @@
-from os import name
+import collections
 import joblib
 import json
+import re
 import streamlit as st
 import pandas as pd
-import sklearn
 
 # DataFrame
 @st.cache
@@ -21,11 +21,12 @@ def get_feature_props(filename):
 
 def get_classifier(name):
     model_maps = {
-        "Naive Bayes": "src/nbc_pipe.joblib",
-        "K-Nearest Neighbors": "src/knn_pipe.joblib"
+        "Naive Bayes": ["src/nbc_pipe.joblib"],
+        "K-Nearest Neighbors": ["src/knn_pipe.joblib"],
+        "Naive Bayes dan K-Nearest Neighbors": ["src/nbc_pipe.joblib", "src/knn_pipe.joblib"]
     }
-    classifier = joblib.load(model_maps[name])
-    return classifier
+    classifiers = [joblib.load(clf) for clf in model_maps[name]]
+    return classifiers
 
 
 def preprocess_input(predictions):
@@ -42,3 +43,16 @@ def preprocess_input(predictions):
             predictions[key] = feature_maps[value]
 
     return predictions
+
+
+def get_predictions(classifier, models, X):
+    records = collections.defaultdict(list)
+    names = re.split(" dan ", classifier)
+
+    for name, model in zip(names, models):
+        records["name"].append(name)
+        records["predictions"].append( str(model.predict(X)[0]) )
+        records["probabilities"].append( model.predict_proba(X) )
+        records["classes"].append( model.named_steps["classifier"].classes_ )
+
+    return records
