@@ -7,13 +7,13 @@
 primaryColor = "#A0C915"
 
 # Background color for the main content area.
-backgroundColor = "#392d2d"
+backgroundColor = "#FFF"
 
 # Background color used for the sidebar and most interactive widgets.
 secondaryBackgroundColor = "#145EB7"
 
 # Color used for almost all text.
-textColor = "#fdfdff"
+textColor = "#101016"
 
 # Font family for all text in the app, except code blocks. One of "sans serif", "serif", or "monospace".
 #font =

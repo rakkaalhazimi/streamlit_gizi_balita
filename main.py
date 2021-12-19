@@ -1,12 +1,12 @@
 import streamlit as st
 from styles import set_style
-from views import view_home, view_table, view_classifier, view_result
+from views import view_home, view_table, view_classifier, view_info
 
 PAGES = {
     "Home": view_home,
     "Dataset": view_table, 
     "Classifier": view_classifier,
-    "Result": view_result}
+    "Informasi Model": view_info}
 
 def change_page(page):
     run = PAGES.get(page)

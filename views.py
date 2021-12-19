@@ -3,26 +3,25 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()
+from styles import table_format
 from models import get_dataframe, get_feature_props, get_classifier, preprocess_input
 
 # Home Page
 def view_home():
     st.title("Klasifikasi Status Gizi Balita")
-    st.text("""
+    st.markdown("""<p class="description">
     Aplikasi berbasis website untuk melakukan klasifikasi status gizi balita 
-    dengan menggunakan Naive Bayes dan KNN""")
+    dengan menggunakan Naive Bayes dan KNN
+    </p>""", unsafe_allow_html=True)
 
 
 # Dataset Page
 def view_table():
     df = get_dataframe("src/Data Balita.xlsx")
     df = df.style.format(precision=2)
-    df = df.set_table_styles(
-        [
-            {'selector': 'th, tr, td', 'props': 'text-align: center !important;'},
-        ],
-        overwrite=True
-    )
+    df = df.set_table_styles(table_format, overwrite=True)
+
+    st.title("Dataset Gizi Balita")
     st.table(df)
 
 
@@ -34,9 +33,6 @@ def show_predictions(classifier, prediction):
 
 def show_description():
     st.header("Klasifikasi Status Gizi Balita")
-    # st.markdown("Terdapat 2 model yang digunakan:")
-    # st.markdown("1. Naive Bayes\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 81%")
-    # st.markdown("2. K-Nearest Neighbors\n\n  Model sudah dilatih dengan data observasi dengan akurasi sebesar 92%")
     st.markdown("#")
 
 def show_probabilities_info(proba_data):
@@ -44,8 +40,11 @@ def show_probabilities_info(proba_data):
     sns.barplot(data=proba_data, x="Keterangan", y="Peluang", ax=ax)
 
     st.subheader("Tabel Probabilitas")
-    st.dataframe(proba_data.style.format(formatter={"Peluang": "{:.2%}"}))
-    st.subheader("Probabilitas Tiap Kategori")
+    st.table(
+        proba_data.style.format(formatter={"Peluang": "{:.2%}"})
+                        .set_table_styles(table_format)
+    )
+    st.subheader("Diagram Batang: Probabilitas")
     st.pyplot(fig)
 
 
@@ -97,6 +96,10 @@ def view_classifier():
 
         show_probabilities_info(proba_data)
         
-            
-def view_result():
-    pass
+
+def view_info():
+    df = pd.read_excel("src/report.xlsx")
+    df = df.style.set_table_styles(table_format, overwrite=True)
+
+    st.header("Informasi Model")
+    st.table(df)
