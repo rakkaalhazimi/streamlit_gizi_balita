@@ -5,6 +5,11 @@ table_format = [
     {'selector': 'th', 'props': 'background-color: #145EB7; color: white !important;'},
 ]
 
+colors = {
+    "Naive Bayes": "red",
+    "K-Nearest Neighbors": "blue"
+}
+
 def set_style():
     st.markdown("""
         <style>

@@ -52,7 +52,7 @@ def get_predictions(classifier, models, X):
     for name, model in zip(names, models):
         records["name"].append(name)
         records["predictions"].append( str(model.predict(X)[0]) )
-        records["probabilities"].append( model.predict_proba(X) )
+        records["probabilities"].append( model.predict_proba(X)[0] )
         records["classes"].append( model.named_steps["classifier"].classes_ )
 
     return records
