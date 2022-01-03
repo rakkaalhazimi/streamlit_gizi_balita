@@ -23,9 +23,10 @@ def view_table():
     df = get_dataframe("src/Data Balita.xlsx")
     df = df.style.format(precision=2)
     df = df.set_table_styles(table_format, overwrite=True)
-
+    df = df.hide_index()
+    
     st.title("Dataset Gizi Balita")
-    st.table(df)
+    st.write(df.to_html(), unsafe_allow_html=True)
 
 
 def show_probabilities_info(predictions):
